@@ -1,0 +1,18 @@
+<div>
+  <a [routerLink]="['home']">
+    Home
+  </a>
+  &nbsp;&mdash;&nbsp;
+  <a [routerLink]="['auth']">Auth</a>
+</div>
+
+@if(user.isLoggedIn()) {
+  <button (click)="logout()" class="btn" style="color: red;">
+      Logout
+  </button>
+} @else {
+  <button (click)="user.loggedIn.set(true)" class="btn" style="color: blue;">
+    Login
+  </button>
+}
+<router-outlet></router-outlet>
