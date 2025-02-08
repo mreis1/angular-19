@@ -15,6 +15,12 @@
     <app-book></app-book>
     <app-book></app-book>
   </div>
+  <div>
+    <form (submit)="$event.preventDefault();handleSubmit()">
+      <input type="text" [formControl]="bookTitleCtrl">
+      <button>Send</button>
+    </form>
+  </div>
 </main>
 
 <router-outlet />

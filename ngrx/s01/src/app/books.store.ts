@@ -1,6 +1,6 @@
-import { signalStore, withState } from '@ngrx/signals';
+import {signalStore, withComputed, withState} from '@ngrx/signals';
 import { Book } from './book.model';
-import {inject, InjectionToken} from '@angular/core';
+import {computed, inject, InjectionToken} from '@angular/core';
 
 /*
 ```
@@ -17,7 +17,7 @@ filter.order: Signal<'asc' | 'desc'>
 ```
 */
 
-type BooksState = {
+export type BooksState = {
   books: Book[];
   isLoading: boolean;
   filter: { query: string; order: 'asc' | 'desc' };
@@ -40,11 +40,26 @@ const BOOKS_STATE = new InjectionToken<BooksState>('BooksState', {
   factory: () => initialState,
 });
 
-/**
- * The withState feature also has a signature that takes the initial state factory as an input argument. The factory is executed within the injection context, allowing initial state to be obtained from a service or injection token.
- */
 export const BooksStore = signalStore(
   // 👇 Providing `BooksStore` at the root level.
-  { providedIn: 'root' },
-  withState(() => inject(BOOKS_STATE))
+  { providedIn: 'root', protectedState: false },
+  withState(() => inject(BOOKS_STATE)),
+  // 👇 Accessing previously defined state signals and properties.
+  withComputed(({ books, filter }) => ({
+    booksCount: computed(() => books().length),
+    sortedBooks: computed(() => {
+      const direction = filter.order() === 'asc' ? 1 : -1;
+
+      /*
+      ** ES2023 reserved **
+      return books().toSorted((a, b) =>
+        direction * a.title.localeCompare(b.title)
+      );
+
+      Bellow I use an alternative compatible with older ES
+       */
+      return books().slice()
+        .sort((a, b) => direction * a.title.localeCompare(b.title));
+    }),
+  }))
 );
