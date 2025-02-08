@@ -1,4 +1,4 @@
-import {signalStore, withComputed, withState} from '@ngrx/signals';
+import {patchState, signalStore, withComputed, withMethods, withState} from '@ngrx/signals';
 import { Book } from './book.model';
 import {computed, inject, InjectionToken} from '@angular/core';
 
@@ -61,5 +61,19 @@ export const BooksStore = signalStore(
       return books().slice()
         .sort((a, b) => direction * a.title.localeCompare(b.title));
     }),
+  })),
+  // 👇 Accessing a store instance with previously defined state signals,
+  // properties, and methods.
+  // https://ngrx.io/guide/signals/signal-store#defining-store-methods
+  // Methods can be added to the store using the withMethods feature. This feature takes a factory function as an input argument and returns a dictionary of methods. Similar to withComputed, the withMethods factory is also executed within the injection context. The store instance, including previously defined state signals, properties, and methods, is accessible through the factory input.
+  // The state of the SignalStore is updated using the patchState function. For more details on the patchState function, refer to the Updating State guide.
+  withMethods((store) => ({
+    updateQuery(query: string): void {
+      // 👇 Updating state using the `patchState` function.
+      patchState(store, (state) => ({ filter: { ...state.filter, query } }));
+    },
+    updateOrder(order: 'asc' | 'desc'): void {
+      patchState(store, (state) => ({ filter: { ...state.filter, order } }));
+    },
   }))
 );
