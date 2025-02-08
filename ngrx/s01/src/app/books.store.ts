@@ -44,5 +44,7 @@ const BOOKS_STATE = new InjectionToken<BooksState>('BooksState', {
  * The withState feature also has a signature that takes the initial state factory as an input argument. The factory is executed within the injection context, allowing initial state to be obtained from a service or injection token.
  */
 export const BooksStore = signalStore(
+  // 👇 Providing `BooksStore` at the root level.
+  { providedIn: 'root' },
   withState(() => inject(BOOKS_STATE))
 );

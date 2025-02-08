@@ -6,9 +6,7 @@ import {BooksStore} from '../books.store';
   imports: [],
   templateUrl: './book.component.html',
   styleUrl: './book.component.css',
-  providers: [
-    BooksStore
-  ]
+  providers: []
 })
 export class BookComponent {
   book = inject(BooksStore);
