@@ -1,4 +1,4 @@
-<p>Books: {{store.booksCount()}}</p>
+<p><b>Books:</b> {{store.booksCount()}}</p>
 
 <ul>
 @for (book of store.books(); track $index) {
@@ -6,11 +6,11 @@
 }
 </ul>
 
-<p>Loading: {{ store.isLoading() }}</p>
+<p><b>Loading:</b> {{ store.isLoading() }}</p>
 
 <!-- 👇 The `DeepSignal` value can be read in the same way as `Signal`. -->
-<p>Pagination: {{ store.filter() | json }}</p>
+<p><b>Pagination:</b> {{ store.filter() | json }}</p>
 
 <!-- 👇 Nested signals are created as `DeepSignal` properties. -->
-<p>Query: {{ store.filter.query() }}</p>
-<p>Order: {{ store.filter.order() }}</p>
+<p><b>Query:</b> {{ store.filter.query() }}</p>
+<p><b>Order:</b> {{ store.filter.order() }}</p>

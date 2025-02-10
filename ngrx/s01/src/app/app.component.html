@@ -1,9 +1,8 @@
-
 <style>
   :host {
     font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-      "Segoe UI Symbol";
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -11,12 +10,11 @@
 </style>
 
 <main class="main">
-  <div  style="display: flex; flex-direction: row;">
+  <div style="display: flex; flex-direction: row; gap: 16px;">
     <form (submit)="$event.preventDefault();handleSubmit(); bookTitleCtrl.setValue('')">
-      <input type="text" [formControl]="bookTitleCtrl">
-      <button>Send</button>
+      <input type="text" [formControl]="bookTitleCtrl" placeholder="Book title">
+      <button>Create</button>
     </form>
-    &nbsp; &nbsp; &nbsp;
     <app-books-filter
       [query]="store.filter.query()"
       [order]="store.filter.order()"
@@ -25,10 +23,10 @@
     />
   </div>
 
-  <div class="content" style="display: grid; grid-template-columns: 1fr 1fr">
+  <div class="content" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;margin-top: 16px">
     <app-book></app-book>
     <app-book></app-book>
   </div>
 </main>
 
-<router-outlet />
+<router-outlet/>
