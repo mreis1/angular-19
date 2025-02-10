@@ -1,0 +1,12 @@
+<div class="books-filter">
+  <input
+    type="text"
+    [value]="query"
+    (input)="onQueryChange($event)"
+    placeholder="Search books...">
+
+  <select [value]="order" (change)="onOrderChange($event)">
+    <option value="asc">Ascending</option>
+    <option value="desc">Descending</option>
+  </select>
+</div>

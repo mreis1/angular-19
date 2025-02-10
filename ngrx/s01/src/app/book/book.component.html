@@ -1,4 +1,11 @@
-<p>Books: {{ store.books() | json }}</p>
+<p>Books: {{store.booksCount()}}</p>
+
+<ul>
+@for (book of store.books(); track $index) {
+    <li>{{book.title}} <button (click)="store.removeBook(book)">Remove</button> </li>
+}
+</ul>
+
 <p>Loading: {{ store.isLoading() }}</p>
 
 <!-- 👇 The `DeepSignal` value can be read in the same way as `Signal`. -->

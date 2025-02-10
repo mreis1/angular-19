@@ -11,15 +11,23 @@
 </style>
 
 <main class="main">
-  <div class="content" style="display: grid; grid-template-columns: 1fr 1fr">
-    <app-book></app-book>
-    <app-book></app-book>
-  </div>
-  <div>
-    <form (submit)="$event.preventDefault();handleSubmit()">
+  <div  style="display: flex; flex-direction: row;">
+    <form (submit)="$event.preventDefault();handleSubmit(); bookTitleCtrl.setValue('')">
       <input type="text" [formControl]="bookTitleCtrl">
       <button>Send</button>
     </form>
+    &nbsp; &nbsp; &nbsp;
+    <app-books-filter
+      [query]="store.filter.query()"
+      [order]="store.filter.order()"
+      (queryChange)="handleQueryChange($event)"
+      (orderChange)="store.updateOrder($event)"
+    />
+  </div>
+
+  <div class="content" style="display: grid; grid-template-columns: 1fr 1fr">
+    <app-book></app-book>
+    <app-book></app-book>
   </div>
 </main>
 
